@@ -193,3 +193,14 @@ cluster_avg_df.rename(columns={'z_contractility': 'z_contractility_cluster'}, in
 cluster_avg_df.to_csv("/Volumes/labshare/Joanne/ASAP/AE_physio_data/TREV/processed/may25/cluster_avg_z_contractility.csv", index=False)
 
 #### adding secret text down here to show version control!
+# let's add another plot 
+mean_timecourses = trev.groupby(['shock', 'time'])['z_contractility'].mean().unstack(level=0)
+plt.figure(figsize=(9, 5))
+for shock_type in mean_timecourses.columns:
+    plt.plot(mean_timecourses.index, mean_timecourses[shock_type], label=shock_type)
+
+plt.xlabel("Time (s)")
+plt.ylabel("z_contractility")
+plt.tight_layout()
+plt.show()
+##
